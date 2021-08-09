@@ -32,7 +32,7 @@ class UserController extends Controller
 
         // send Response
         return response()->json([
-            'status' => '1',
+            'status' => 1,
             'message' => 'User Registation Successfully',
         ], 200);
     }
@@ -49,22 +49,29 @@ class UserController extends Controller
         // Verify user + token
         if (!$token = Auth::attempt(["email" => $request->email, "password" => $request->password])) {
             return response()->json([
-                'status' => '0',
+                'status' => 0,
                 'message' => 'Unauthorized',
             ], 401);
         }
 
         // send response
         return response()->json([
-            'status' => '1',
+            'status' => 1,
             'message' => 'Login Successfully',
             'access_token' => $token,
         ], 200);
     }
 
     // USER PROFILE API - GET
-    public function profile($id)
+    public function profile()
     {
+        $user = Auth::user();
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'User Profile data',
+            'data' => $user
+        ]);
     }
 
     // USER LOGOUT API - GET
