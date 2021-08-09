@@ -77,5 +77,11 @@ class UserController extends Controller
     // USER LOGOUT API - GET
     public function logout()
     {
+        $user = Auth::logout();
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'User Logout Successfully',
+        ]);
     }
 }
