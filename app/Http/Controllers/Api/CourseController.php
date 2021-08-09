@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,9 +36,18 @@ class CourseController extends Controller
         ], 200);
     }
 
-    // COURSE TOTALCOURSES API - GET
+    // COURSE TOTAL COURSES API - GET
     public function totalcourses()
     {
+        $user_id = Auth::user()->id;
+
+        $courses = User::find($user_id)->courses;
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'Total Courses Enroll',
+            'data' => $courses
+        ]);
     }
 
     // DELETE COURSE API - GET
